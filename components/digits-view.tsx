@@ -62,6 +62,7 @@ export interface DigitsViewProps {
   currentTick: Tick | null;
   lastDigit: number | null;
   digitStats: DigitStats;
+  prices: number[];
   pipSize: number;
 
   // Trade controls
@@ -123,6 +124,7 @@ export function DigitsView({
   currentTick,
   lastDigit,
   digitStats,
+  prices,
   pipSize,
   tradeType,
   setTradeType,
@@ -272,6 +274,7 @@ export function DigitsView({
     <RiskLens
       activeSymbol={activeSymbol?.underlying_symbol ?? 'Market'}
       digitStats={digitStats}
+      prices={prices}
       selectedDigit={selectedDigit}
       tradeType={tradeType}
       contractMode={contractMode}

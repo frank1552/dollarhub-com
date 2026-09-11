@@ -54,7 +54,8 @@ For local development, copy `.env.production` to `.env.local` — Next.js will l
 NEXT_PUBLIC_DERIV_APP_ID=your_app_id_here
 NEXT_PUBLIC_DERIV_REDIRECT_URI=https://your-project.vercel.app
 NEXT_PUBLIC_DERIV_ENV=production
-NEXT_PUBLIC_DERIV_OAUTH_SCOPES=trade
+NEXT_PUBLIC_DERIV_OAUTH_SCOPES=trade,account_manage
+NEXT_PUBLIC_DERIV_REFERRAL_LINK=https://t.deriv.link?t=LENSBL7MEKVA
 ```
 
 3. Register the exact same `NEXT_PUBLIC_DERIV_REDIRECT_URI` in the Deriv App Registration dashboard.

@@ -62,13 +62,14 @@ export function LiveDigits({
       showAppName={showAppName}
       isConnected={trading.isConnected}
       isLoading={trading.isLoading}
-      error={trading.error}
+      error={auth.error ?? trading.error}
       symbols={trading.symbols}
       activeSymbol={trading.activeSymbol}
       selectSymbol={trading.selectSymbol}
       currentTick={trading.currentTick}
       lastDigit={trading.lastDigit}
       digitStats={trading.digitStats}
+      prices={trading.prices}
       pipSize={trading.pipSize}
       tradeType={trading.tradeType}
       setTradeType={trading.setTradeType}

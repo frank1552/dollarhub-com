@@ -6,28 +6,40 @@
   isolation: isolate;
   min-height: 100dvh;
   background-color: rgb(var(--background));
-  background-image: linear-gradient(90deg, rgb(var(--background) / 0.98) 0%, rgb(var(--background) / 0.9) 45%, rgb(8 18 28 / 0.72) 100%), url('/trading-background.jpg');
-  background-position: center, right 66px top;
+  background-image: linear-gradient(90deg, rgb(var(--background) / 0.94) 0%, rgb(var(--background) / 0.78) 48%, rgb(8 18 28 / 0.58) 100%), url('/trading-background.jpg');
+  background-position: center;
   background-repeat: no-repeat;
-  background-size: cover, min(46vw, 620px) auto;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.contact-float {
+  bottom: max(1rem, calc(env(safe-area-inset-bottom) + 1rem));
+}
+
+@media (max-width: 640px) {
+  .contact-float {
+    bottom: max(4.75rem, calc(env(safe-area-inset-bottom) + 4.75rem));
+  }
 }
 
 .dark .market-shell {
-  background-image: linear-gradient(90deg, rgb(8 18 28 / 0.98) 0%, rgb(8 18 28 / 0.86) 50%, rgb(8 18 28 / 0.62) 100%), url('/trading-background.jpg');
+  background-image: linear-gradient(90deg, rgb(8 18 28 / 0.92) 0%, rgb(8 18 28 / 0.72) 48%, rgb(8 18 28 / 0.5) 100%), url('/trading-background.jpg');
 }
 
 @media (max-width: 1023px) {
   .market-shell {
-    background-position: center, right 66px top;
-    background-size: cover, 420px auto;
+    background-attachment: scroll;
+    background-position: center;
+    background-size: cover;
   }
 }
 
 @media (max-width: 640px) {
   .market-shell {
-    background-image: linear-gradient(180deg, rgb(var(--background) / 0.97), rgb(var(--background) / 0.94)), url('/trading-background.jpg');
-    background-position: center, 70% 66px;
-    background-size: cover, 500px auto;
+    background-image: linear-gradient(180deg, rgb(var(--background) / 0.92), rgb(var(--background) / 0.84)), url('/trading-background.jpg');
+    background-position: center;
+    background-size: cover;
   }
 }
 

@@ -205,15 +205,16 @@ export function useAuth(): UseAuthReturn {
     const init = async () => {
       const url = new URL(window.location.href);
       const code = url.searchParams.get('code');
+      const oauthError = url.searchParams.get('error');
 
       // Phase 3-5: Handle OAuth callback
-      if (code) {
+      if (code || oauthError) {
         setAuthState('authenticating');
         try {
           const authInfo = await handleOAuthCallback(window.location.href, getAuthConfig());
           await completeAuth(authInfo);
         } catch (err) {
-          setError(err instanceof Error ? err.message : 'Authentication failed');
+          setError(err instanceof Error ? err.message : 'Deriv verification was not completed');
           setAuthState('error');
           clearAllAuthData();
         }

@@ -30,6 +30,7 @@ interface UseDigitsTradingReturn {
   currentTick: Tick | null;
   lastDigit: number | null;
   digitStats: DigitStats;
+  prices: number[];
   tradeType: TradeType;
   setTradeType: (type: TradeType) => void;
   contractMode: ContractMode;
@@ -170,6 +171,7 @@ export function useDigitsTrading({ ws, isConnected, isExhausted, isAuthenticated
     currentTick,
     lastDigit,
     digitStats,
+    prices,
     tradeType,
     setTradeType,
     contractMode,

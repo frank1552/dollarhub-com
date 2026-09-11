@@ -8,6 +8,7 @@ import type { ContractMode, DigitStats, TradeType } from '@/lib/types';
 interface RiskLensProps {
   activeSymbol: string;
   digitStats: DigitStats;
+  prices: number[];
   selectedDigit: number;
   tradeType: TradeType;
   contractMode: ContractMode;
@@ -44,6 +45,7 @@ function getContractLabel(mode: ContractMode, digit: number): string {
 export function RiskLens({
   activeSymbol,
   digitStats,
+  prices,
   selectedDigit,
   contractMode,
   stake,
@@ -56,6 +58,17 @@ export function RiskLens({
   const stakeValue = Number(stake) || 0;
   const balanceValue = Number(balance) || 0;
   const exposure = balanceValue > 0 ? (stakeValue / balanceValue) * 100 : null;
+  const returns = prices.slice(1).map((price, index) => {
+    const previous = prices[index];
+    return previous ? (price - previous) / previous : 0;
+  });
+  const averageReturn = returns.length > 0 ? returns.reduce((sum, value) => sum + value, 0) / returns.length : 0;
+  const variance = returns.length > 0
+    ? returns.reduce((sum, value) => sum + (value - averageReturn) ** 2, 0) / returns.length
+    : 0;
+  const volatility = Math.sqrt(variance) * 100;
+  const marketSafety = prices.length < 50 ? 'Insufficient data' : volatility < 0.08 ? 'Lower volatility' : volatility < 0.2 ? 'Moderate volatility' : 'High volatility';
+  const safetyTone = marketSafety === 'Lower volatility' ? 'text-emerald-300' : marketSafety === 'Moderate volatility' ? 'text-amber-300' : 'text-rose-300';
   const enoughData = digitStats.totalTicks >= 50;
   const confidence = Math.min(99, Math.max(1, 45 + Math.abs(edge) * 2.2 + Math.min(digitStats.totalTicks, 200) / 20));
   const action = !enoughData
@@ -101,6 +114,11 @@ export function RiskLens({
           <div className="rounded-lg bg-white/5 p-3"><p className="text-slate-400">Ticks</p><p className="mt-1 font-semibold">{digitStats.totalTicks}</p></div>
           <div className="rounded-lg bg-white/5 p-3"><p className="text-slate-400">Confidence</p><p className="mt-1 font-semibold">{confidence.toFixed(0)}%</p></div>
           <div className="rounded-lg bg-white/5 p-3"><p className="text-slate-400">Exposure</p><p className="mt-1 font-semibold">{exposure === null ? '—' : `${exposure.toFixed(1)}%`}</p></div>
+        </div>
+
+        <div className="flex items-center justify-between rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs">
+          <span className="text-slate-400">Market safety check</span>
+          <span className={`font-semibold ${safetyTone}`}>{marketSafety}</span>
         </div>
 
         <div className="flex items-start gap-3 rounded-lg border border-white/10 bg-white/5 p-3">
