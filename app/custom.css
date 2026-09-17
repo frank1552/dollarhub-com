@@ -5,12 +5,46 @@
   position: relative;
   isolation: isolate;
   min-height: 100dvh;
-  background-color: rgb(var(--background));
-  background-image: linear-gradient(90deg, rgb(var(--background) / 0.94) 0%, rgb(var(--background) / 0.78) 48%, rgb(8 18 28 / 0.58) 100%), url('/trading-background.jpg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(2, 6, 23, 0.72), rgba(2, 6, 23, 0.9)),
+    linear-gradient(90deg, rgba(2, 6, 23, 0.82) 0%, rgba(2, 6, 23, 0.62) 48%, rgba(2, 6, 23, 0.76) 100%),
+    url('/trading-background.jpg') center / cover no-repeat;
   background-attachment: fixed;
+}
+
+.market-shell::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: '';
+  background-image:
+    linear-gradient(rgba(34, 211, 238, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 211, 238, 0.05) 1px, transparent 1px),
+    radial-gradient(circle at 18% 20%, rgba(34, 211, 238, 0.18), transparent 24%),
+    radial-gradient(circle at 82% 68%, rgba(56, 189, 248, 0.12), transparent 28%);
+  background-size: 56px 56px, 56px 56px, auto, auto;
+}
+
+.market-shell > * {
+  position: relative;
+  z-index: 1;
+}
+
+.market-shell .bg-card,
+.market-shell [class*='card'] {
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(15, 23, 42, 0.74);
+  box-shadow: 0 18px 60px rgba(15, 23, 42, 0.28);
+  backdrop-filter: blur(14px);
+}
+
+.dark .market-shell {
+  background:
+    linear-gradient(180deg, rgba(2, 6, 23, 0.82), rgba(2, 6, 23, 0.94)),
+    linear-gradient(90deg, rgba(2, 6, 23, 0.9) 0%, rgba(2, 6, 23, 0.7) 48%, rgba(2, 6, 23, 0.8) 100%),
+    url('/trading-background.jpg') center / cover no-repeat;
 }
 
 .contact-float {
@@ -18,28 +52,13 @@
 }
 
 @media (max-width: 640px) {
-  .contact-float {
-    bottom: max(4.75rem, calc(env(safe-area-inset-bottom) + 4.75rem));
-  }
-}
-
-.dark .market-shell {
-  background-image: linear-gradient(90deg, rgb(8 18 28 / 0.92) 0%, rgb(8 18 28 / 0.72) 48%, rgb(8 18 28 / 0.5) 100%), url('/trading-background.jpg');
-}
-
-@media (max-width: 1023px) {
   .market-shell {
     background-attachment: scroll;
     background-position: center;
-    background-size: cover;
   }
-}
 
-@media (max-width: 640px) {
-  .market-shell {
-    background-image: linear-gradient(180deg, rgb(var(--background) / 0.92), rgb(var(--background) / 0.84)), url('/trading-background.jpg');
-    background-position: center;
-    background-size: cover;
+  .contact-float {
+    bottom: max(4.75rem, calc(env(safe-area-inset-bottom) + 4.75rem));
   }
 }
 
@@ -56,9 +75,11 @@
     border-color: rgb(var(--primary));
   }
 }
+
 .nocode-drag-hint {
   animation: nocode-drag-hint 1s ease-in-out 2;
 }
+
 @media (prefers-reduced-motion: reduce) {
   .nocode-drag-hint {
     animation: none;
